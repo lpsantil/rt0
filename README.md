@@ -17,7 +17,7 @@ A minimal C runtime for Linux i386 &amp; x86_64
 | hello.exe   | i386   | 5532 | Hello World\n with glibc | -Os -s -fomit-frame-pointer           | Author |
 | hello.exe   | x86_64 | 6240 | Hello World\n with glibc | -Os -s -fomit-frame-pointer           | Author |
 
-See the [musl libc comparison][0] to see how other libc's fair.
+See the [musl libc comparison][0] to see how other libc's fare.
 
 ## Building
 Try:
@@ -28,11 +28,11 @@ Try:
 * `make runtest`
 
 ## Usage
-Include `rt0/rt0.h` for `__environ`, `_exit`
-Include `rt0/syscall.h` for `SYS_*`, `syscall0/1/2/3/4/5/6`
-Define `main` as `int main( int, char**, char** )`
-Compile your code with `-nostdlib`, e.g., `cc -c prog.c -nostdlib -o prog.o`
-Link with librt0, e.g., `cc prog.o -nostdlib -lrt0 -o prog`
+* Include `rt0/rt0.h` for `__environ`, `_exit`
+* Include `rt0/syscall.h` for `SYS_*`, `syscall0/1/2/3/4/5/6`
+* Define `main` as `int main( int, char**, char** )`
+* Compile your code with `-nostdlib`, e.g., `cc -c prog.c -nostdlib -o prog.o`
+* Link with librt0, e.g., `cc prog.o -nostdlib -lrt0 -o prog`
 
 
 [0]: http://www.etalabs.net/compare_libcs.html
