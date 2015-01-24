@@ -1,0 +1,2 @@
+1. Consider implementing some subset of the unistd.h functions
+2. Consider implementing further byte shaving (turn the syscalls into macros)
