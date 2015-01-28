@@ -9,11 +9,11 @@
 #include <sys/syscall.h>
 
 long syscall6( long n, long a0, long a1, long a2, long a3, long a4, long a5 );
-long inline syscall5( long n, long a0, long a1, long a2, long a3, long a4 );
-long inline syscall4( long n, long a0, long a1, long a2, long a3 );
-long inline syscall3( long n, long a0, long a1, long a2 );
-long inline syscall2( long n, long a0, long a1 );
-long inline syscall1( long n, long a0 );
-long inline syscall0( long n );
+inline long syscall5( long n, long a0, long a1, long a2, long a3, long a4 );
+inline long syscall4( long n, long a0, long a1, long a2, long a3 );
+inline long syscall3( long n, long a0, long a1, long a2 );
+inline long syscall2( long n, long a0, long a1 );
+inline long syscall1( long n, long a0 );
+inline long syscall0( long n );
 
 #endif
