@@ -8,14 +8,18 @@ A minimal C runtime for Linux i386 &amp; x86_64
 * Small runtime providing just `argc`, `argv`, `envp`, `__environ`, `_exit`, and `syscall0/1/2/3/4/5/6`
 * Small binary sizes vs. other libc's
 
-| Binary      | Arch   | Size | Purpose                  | Compile Args                          | Source |
--------------:|:-------|-----:|:-------------------------|:--------------------------------------|:--------
-| librt0.a    | i386   | 5048 | Startup code+syscall     | -Os -s -nostdlib -fomit-frame-pointer | Author |
-| librt0.a    | x86_64 | 6724 | Startup code+syscall     | -Os -s -nostdlib -fomit-frame-pointer | Author |
-| t/hello.exe | i386   | 1648 | Hello World\n            | -Os -s -nostdlib -fomit-frame-pointer | Author |
-| t/hello.exe | x86_64 | 1752 | Hello World\n            | -Os -s -nostdlib -fomit-frame-pointer | Author |
-| hello.exe   | i386   | 5532 | Hello World\n with glibc | -Os -s -fomit-frame-pointer           | Author |
-| hello.exe   | x86_64 | 6240 | Hello World\n with glibc | -Os -s -fomit-frame-pointer           | Author |
+| Binary      | Arch   | Size | Purpose                  | Compile Args                          |
+-------------:|:-------|-----:|:-------------------------|:--------------------------------------|
+| librt0.a    | i386   | 5160 | Startup code+syscall     | -Os -s -nostdlib -fomit-frame-pointer |
+| librt0.a    | x86_64 | 6772 | Startup code+syscall     | -Os -s -nostdlib -fomit-frame-pointer |
+| t/hello.exe | i386   | 1760 | Hello World\n            | -Os -s -nostdlib -fomit-frame-pointer |
+| t/hello.exe | x86_64 | 1800 | Hello World\n            | -Os -s -nostdlib -fomit-frame-pointer |
+| hello.exe   | i386   | 5532 | Hello World\n with glibc | -Os -s -fomit-frame-pointer           |
+| hello.exe   | x86_64 | 6240 | Hello World\n with glibc | -Os -s -fomit-frame-pointer           |
+
+Compiler: GCC 4.8.2
+OS: Ubuntu 14.04.1
+Source: Author
 
 See the [musl libc comparison][0] to see how other libc's fare.
 

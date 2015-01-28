@@ -8,7 +8,7 @@
 #ifdef __LP64__
    #define __SYSCALL_OPCODE__                "syscall"
 
-   #define __SYSCALL_PREAMBLE__                      \
+   #define __SYSCALL_PREAMBLE__()                    \
       register long r10 __asm__( "r10" ) = a3,       \
                     r08	__asm__( "r8" )  = a4,       \
                     r09 __asm__( "r9" )  = a5
@@ -22,12 +22,12 @@
 #else
    #define __SYSCALL_OPCODE__              "int $0x80"
 
-   #define __SYSCALL_PREAMBLE__                      \
-      register long ebp __asm__( "ebp" )  = a6
+   #define __SYSCALL_PREAMBLE__()                    \
+      register long ebp __asm__( "ebp" )  = a5
 
    #define __SYSCALL_INPUT_REGS__                    \
-      "a" ( n ), "d" ( a0 ), "c" ( a1 ), "D" ( a2 ), \
-      "S" ( a3 ), "r" ( ebp )
+      "a" ( n ), "b" ( a0 ), "c" ( a1 ), "d" ( a2 ), \
+      "S" ( a3 ), "D" ( a4 ), "r" ( ebp )
 
    #define __SYSCALL_CLOBBERS__               "memory"
 
@@ -36,7 +36,7 @@
 long syscall6( long n, long a0, long a1, long a2, long a3, long a4, long a5 )
 {
    unsigned long ret;
-   __SYSCALL_PREAMBLE__;
+   __SYSCALL_PREAMBLE__();
 
    __asm__ volatile( __SYSCALL_OPCODE__
                      : __SYSCALL_OUTPUT_REG__
