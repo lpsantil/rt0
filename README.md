@@ -17,9 +17,7 @@ A minimal C runtime for Linux i386 &amp; x86_64
 | hello.exe   | i386   | 5532 | Hello World\n with glibc | -Os -s -fomit-frame-pointer           |
 | hello.exe   | x86_64 | 6240 | Hello World\n with glibc | -Os -s -fomit-frame-pointer           |
 
-Compiler: GCC 4.8.2
-OS: Ubuntu 14.04.1
-Source: Author
+Compiler: GCC 4.8.2, OS: Ubuntu 14.04.1, Source: Author
 
 See the [musl libc comparison][0] to see how other libc's fare.
 
