@@ -38,7 +38,7 @@ Try:
 * Compile your code with `-nostdlib`, e.g., `cc -c prog.c -nostdlib -o prog.o`
 * Link with librt0, e.g., `cc prog.o -nostdlib -lrt0 -o prog`
 
-## Usage
+## References
 * [Hello from a libc free world!][1]
 * [musl libc][2]
 * [Minimum C prgram][3]
