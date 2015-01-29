@@ -47,7 +47,7 @@ Try:
 * [System V ABI/Calling Convention][6]
 * [Linux syscall interface][7]
 
-## Small libc's and runtimes
+## Other small libc's and runtimes
 * [musl libc][8]
 * [newlib libc][9]
 * [uclibc][10]
@@ -64,11 +64,11 @@ Try:
 [5]: http://www.ibiblio.org/gferg/ldp/GCC-Inline-Assembly-HOWTO.html
 [6]: http://wiki.osdev.org/System_V_ABI#Calling_Convention
 [7]: http://en.wikibooks.org/wiki/X86_Assembly/Interfacing_with_Linux#Making_a_syscall
-* [musl libc][8]: http://www.musl-libc.org/
-* [newlib libc][9]: https://sourceware.org/newlib/
-* [uclibc][10]: http://www.uclibc.org/
-* [dietlibc][11]: http://www.fefe.de/dietlibc/
-* [lib43][12]: https://github.com/lunixbochs/lib43
-* [libowfat -lowfat][13]: http://www.fefe.de/libowfat/
-* [libdjb][14]: http://www.fefe.de/libowfat/
+[8]: http://www.musl-libc.org/
+[9]: https://sourceware.org/newlib/
+[10]: http://www.uclibc.org/
+[11]: http://www.fefe.de/dietlibc/
+[12]: https://github.com/lunixbochs/lib43
+[13]: http://www.fefe.de/libowfat/
+[14]: http://www.fefe.de/djb/
 
