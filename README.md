@@ -52,9 +52,10 @@ Try:
 * [newlib libc][9]
 * [uclibc][10]
 * [dietlibc][11]
-* [lib43][12]
-* [libowfat][13]
-* [libdjb][14]
+* [Plan9 libc][12]
+* [lib43][13]
+* [libowfat][14]
+* [libdjb][15]
 
 [0]: http://www.etalabs.net/compare_libcs.html
 [1]: https://blogs.oracle.com/ksplice/entry/hello_from_a_libc_free
@@ -68,7 +69,8 @@ Try:
 [9]: https://sourceware.org/newlib/
 [10]: http://www.uclibc.org/
 [11]: http://www.fefe.de/dietlibc/
-[12]: https://github.com/lunixbochs/lib43
-[13]: http://www.fefe.de/libowfat/
-[14]: http://www.fefe.de/djb/
+[12]: http://git.suckless.org/9base/tree/lib9/libc.h
+[13]: https://github.com/lunixbochs/lib43
+[14]: http://www.fefe.de/libowfat/
+[15]: http://www.fefe.de/djb/
 
