@@ -25,7 +25,6 @@ See the [musl libc comparison][0] to see how other libc's fare.
 Try:
 * `make`
 * `make librt0.a`
-* `make install`
 * `make test`
 * `make runtest`
 
