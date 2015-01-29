@@ -46,33 +46,3 @@ long syscall6( long n, long a0, long a1, long a2, long a3, long a4, long a5 )
    return( ret );
 }
 
-inline long syscall5( long n, long a0, long a1, long a2, long a3, long a4 )
-{
-   return( syscall6( n, a0, a1, a2, a3, a4, ( long )( 0 ) ) );
-}
-
-inline long syscall4( long n, long a0, long a1, long a2, long a3 )
-{
-   return( syscall5( n, a0, a1, a2, a3, ( long )( 0 ) ) );
-}
-
-inline long syscall3( long n, long a0, long a1, long a2 )
-{
-   return( syscall4( n, a0, a1, a2, ( long )( 0 ) ) );
-}
-
-inline long syscall2( long n, long a0, long a1 )
-{
-   return( syscall3( n, a0, a1, ( long )( 0 ) ) );
-}
-
-inline long syscall1( long n, long a0 )
-{
-   return( syscall2( n, a0, ( long )( 0 ) ) );
-}
-
-inline long syscall0( long n )
-{
-   return( syscall1( n, ( long )( 0 ) ) );
-}
-

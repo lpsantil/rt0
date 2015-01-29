@@ -1,2 +1,3 @@
-1. Consider implementing some subset of the unistd.h functions
-2. Consider implementing further byte shaving (turn the syscalls into macros)
+1. Consider implementing some subset of stdlib.h
+2. Consider implementing some subset of unistd.h
+3. Consider implementing some subset of the Newlib porting functions
