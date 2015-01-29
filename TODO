@@ -1,5 +1,5 @@
 1. Consider implementing some subset of stdlib.h
 2. Consider implementing some subset of unistd.h
 3. Consider implementing some subset of the Newlib porting functions
-4. Implement 64-returning syscalls.
+4. Implement 64-bit returning syscalls.
 5. Fix make install
