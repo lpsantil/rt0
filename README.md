@@ -10,8 +10,8 @@ A minimal C runtime for Linux i386 &amp; x86_64
 
 | Binary      | Arch   | Size | Purpose                  | Compile Args                          |
 -------------:|:-------|-----:|:-------------------------|:--------------------------------------|
-| librt0.a    | i386   | 4390 | Startup code+syscall     | -Os -s -nostdlib -fomit-frame-pointer |
-| librt0.a    | x86_64 | 6086 | Startup code+syscall     | -Os -s -nostdlib -fomit-frame-pointer |
+| librt0.a    | i386   | 4390 | Startup code+syscall     | -Os -nostdlib -fomit-frame-pointer    |
+| librt0.a    | x86_64 | 6086 | Startup code+syscall     | -Os -nostdlib -fomit-frame-pointer    |
 | t/hello.exe | i386   | 1272 | Hello World\n            | -Os -s -nostdlib -fomit-frame-pointer |
 | t/hello.exe | x86_64 | 1520 | Hello World\n            | -Os -s -nostdlib -fomit-frame-pointer |
 | hello.exe   | i386   | 5532 | Hello World\n with glibc | -Os -s -fomit-frame-pointer           |
