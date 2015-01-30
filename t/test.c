@@ -6,7 +6,7 @@ void println( const char* string )
    write( 1, "\n", 1 );
 }
 
-int main( int argc, char **argv, char **envp )
+int main( int argc, char** argv, char** envp )
 {
    int i;
 
@@ -15,8 +15,6 @@ int main( int argc, char **argv, char **envp )
 
    println( "-- Environment --" );
 
-   //envp = argv + argc + 1;
-
    while( *envp )
    {
       println( *envp );
@@ -24,7 +22,7 @@ int main( int argc, char **argv, char **envp )
    }
    println( "Bye!" );
 
-   return 0;
+   return( 0 );
 }
 
 int write( int f, char* d, int l )

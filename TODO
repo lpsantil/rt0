@@ -4,3 +4,4 @@
 4. Implement 64-bit returning syscalls
 5. Consider implementing Thread Local Storage POSIX interfaces
 6. Consider implementing C++ constructor/destructor setups
+7. Fix dumb dependency on glibc sys/syscall.h for SYS_*
