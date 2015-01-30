@@ -2,8 +2,10 @@
 # All rights reserved.
 # See LICENSE for licensing details.
 
-DEST ?= .
-PREFIX ?= /usr/local
+DEST ?=
+PREFIX ?= usr/local
+
+INSTALL_PATH = $(DEST)/$(PREFIX)
 
 ######################################################################
 # Core count
@@ -100,15 +102,16 @@ clean:
 	rm -f $(OBJ) $(EXE) $(LOBJ) $(LIB) $(TOBJ) $(TEXE)
 
 install:
-	mkdir -p $(DEST)/$(PREFIX)/bin $(DEST)/$(PREFIX)/include $(DEST)/$(PREFIX)/lib
-	cp -r $(IDIR)/* $(DEST)/$(PREFIX)/include/
-	cp $(LIB) $(DEST)/$(PREFIX)/lib/
+	mkdir -p $(INSTALL_PATH)/bin $(INSTALL_PATH)/include $(INSTALL_PATH)/lib
+	cp -r $(IDIR)/* $(INSTALL_PATH)/include/
+	cp $(LIB) $(INSTALL_PATH)/lib/
 
 showconfig:
 	@echo "OS="$(OS)
 	@echo "ARCH="$(ARCH)
 	@echo "DEST="$(DEST)
 	@echo "PREFIX="$(PREFIX)
+	@echo "INSTALL_PATH="$(INSTALL_PATH)
 	@echo "CFLAGS="$(CFLAGS)
 	@echo "LDFLAGS="$(LDFLAGS)
 	@echo "DDIR="$(DDIR)

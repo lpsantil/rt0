@@ -4,7 +4,7 @@ A minimal C runtime for Linux i386 &amp; x86_64
 ## Features
 * Implemented in just 87 SLOC of C code.
 * Just 2 lines of GCC inline ASM for i386, or,
-* Just 6 lines GCC inline ASM for x86_64 (because the SysV x86_64 ABI is register-based vs. the stack-based SysV i386 ABI)
+* Just 6 lines GCC inline ASM for x86_64
 * Small runtime providing just `argc`, `argv`, `envp`, `__environ`, `_exit`, and `syscall0/1/2/3/4/5/6`
 * Small binary sizes vs. other libc's
 
@@ -27,6 +27,7 @@ Try:
 * `make librt0.a`
 * `make test`
 * `make runtest`
+* In bash, `DEST=/ PREFIX=usr/local make install`, or simply, `make install`
 
 ## Usage
 * Include `rt0/rt0.h` for `__environ`, `_exit`
