@@ -2,7 +2,7 @@
 # All rights reserved.
 # See LICENSE for licensing details.
 
-DEST ?=
+DEST ?= .
 PREFIX ?= /usr/local
 
 ######################################################################
@@ -15,14 +15,11 @@ ARCH ?= $(shell arch)
 
 ######################################################################
 
-AFLAGS ?=
 #CFLAGS ?= -Os -nostdlib -g -fomit-frame-pointer
 CFLAGS ?= -Os -nostdlib -fomit-frame-pointer
 LDFLAGS ?= -s
 DDIR = docs
 DSRC =
-ASRC =
-AOBJ = $(ASRC:.s=.o)
 SRC =
 OBJ = $(SRC:.c=.o)
 HDR = rt0/rt0.h
@@ -53,9 +50,6 @@ LIBDEP =
 TDEPS =
 TAP =
 LIBTAP =
-
-.s.o:
-	$(AS) $(AFLAGS) $< -o $@
 
 .c.o:
 	$(CC) $(CFLAGS) -I$(IDIR) -c $< -o $@
@@ -107,9 +101,8 @@ clean:
 
 install:
 	mkdir -p $(DEST)/$(PREFIX)/bin $(DEST)/$(PREFIX)/include $(DEST)/$(PREFIX)/lib
-	cp $(INC) $(DEST)/$(PREFIX)/include/
+	cp -r $(IDIR)/* $(DEST)/$(PREFIX)/include/
 	cp $(LIB) $(DEST)/$(PREFIX)/lib/
-	cp $(EXE) $(DEST)/$(PREFIX)/bin
 
 showconfig:
 	@echo "OS="$(OS)
@@ -138,3 +131,14 @@ showconfig:
 	@echo "TMPCI="$(TMPCI)
 	@echo "TMPCT="$(TMPCT)
 	@echo "TMPCD="$(TMPCD)
+
+gstat:
+	git status
+
+gpush:
+	git commit
+	git push
+
+tarball:
+	cd && \
+	tar jcvf rt0.$(shell date +%Y%m%d%H%M%S).tar.bz2 rt0/
