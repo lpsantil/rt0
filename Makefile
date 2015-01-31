@@ -107,6 +107,12 @@ install:
 	cp -r $(IDIR)/* $(INSTALL_PATH)/include/
 	cp $(LIB) $(INSTALL_PATH)/lib/
 
+uninstall:
+	cd $(IDIR); for file in *; do \
+		rm -r $(INSTALL_PATH)/include/$$file; \
+	done
+	rm $(INSTALL_PATH)/lib/$(LIB)
+
 showconfig:
 	@echo "OS="$(OS)
 	@echo "ARCH="$(ARCH)
