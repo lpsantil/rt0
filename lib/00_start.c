@@ -9,9 +9,9 @@
    #define __STARTUP_PREAMBLE__() register long rax __asm__( "rax" )
 
    /* Setup the base */
-   /* argc = [ RSP ] */
-   /* argv = [ RSP+8 ] */
-   /* envp = [ argv+8*argc+8 ] */
+   /* argc = RDI = [ RSP ] */
+   /* argv = RSI = [ RSP+8 ] */
+   /* envp = RDX = [ argv+8*argc+8 ] */
    /* align the stack */
    #define __STARTUP_ASM__                                           \
                      "pop	%rbp\n\t"                            \
@@ -27,6 +27,13 @@
 #else
    #define __STARTUP_PREAMBLE__() register long eax __asm__( "eax" )
 
+   /* Setup the base */
+   /* Fix GCC's 'helpful" 16-byte alignment */
+   /* argc = ECX = [ ESP ] */
+   /* argv = EDX = [ ESP+8 ] */
+   /* envp = EAX = [ argv+8*argc+8 ] */
+   /* align the stack */
+   /* push args onto re-aligned stack */
    #define __STARTUP_ASM__                                           \
                      "mov	%esp,	%ebp\n\t"                    \
                      "add	$0x1c,	%ebp\n\t"                    \
