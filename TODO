@@ -5,3 +5,4 @@
 5. Consider implementing Thread Local Storage POSIX interfaces
 6. Consider implementing C++ constructor/destructor setups
 7. Fix dumb dependency on glibc sys/syscall.h for SYS_*
+8. Consider implementing a __RT0_WITH_FASTER_SYSCALL__

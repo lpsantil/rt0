@@ -9,7 +9,7 @@
 extern char **__environ; /* pointer to array of char * strings that define the current environment variables */
 extern int errno;
 
-void _exit( int r );
+void _exit( int r ) __attribute__((noreturn));
 /*
 int close( int file );
 int execve( char* name, char** argv, char** env );

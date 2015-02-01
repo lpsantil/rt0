@@ -2,18 +2,18 @@
 A minimal C runtime for Linux i386 &amp; x86_64
 
 ## Features
-* Implemented in just 87 SLOC of C code.
-* Just 2 lines of GCC inline ASM for i386, or,
+* Implemented in just 101 SLOC of C code.
+* Just 9 lines of GCC inline ASM for i386, or,
 * Just 6 lines GCC inline ASM for x86_64
 * Small runtime providing just `argc`, `argv`, `envp`, `__environ`, `_exit`, and `syscall0/1/2/3/4/5/6`
 * Small binary sizes vs. other libc's
 
 | Binary      | Arch   | Size | Purpose                  | Compile Args                          |
 -------------:|:-------|-----:|:-------------------------|:--------------------------------------|
-| librt0.a    | i386   | 4390 | Startup code+syscall     | -Os -nostdlib -fomit-frame-pointer    |
-| librt0.a    | x86_64 | 6086 | Startup code+syscall     | -Os -nostdlib -fomit-frame-pointer    |
-| t/hello.exe | i386   | 1272 | Hello World\n            | -Os -s -nostdlib -fomit-frame-pointer |
-| t/hello.exe | x86_64 | 1520 | Hello World\n            | -Os -s -nostdlib -fomit-frame-pointer |
+| librt0.a    | i386   | 4410 | Startup code+syscall     | -Os -nostdlib -fomit-frame-pointer    |
+| librt0.a    | x86_64 | 4590 | Startup code+syscall     | -Os -nostdlib -fomit-frame-pointer    |
+| t/hello.exe | i386   | 1232 | Hello World\n            | -Os -s -nostdlib -fomit-frame-pointer |
+| t/hello.exe | x86_64 | 1464 | Hello World\n            | -Os -s -nostdlib -fomit-frame-pointer |
 | hello.exe   | i386   | 5532 | Hello World\n with glibc | -Os -s -fomit-frame-pointer           |
 | hello.exe   | x86_64 | 6240 | Hello World\n with glibc | -Os -s -fomit-frame-pointer           |
 

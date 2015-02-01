@@ -20,6 +20,7 @@ ARCH ?= $(shell arch)
 #CFLAGS ?= -Os -nostdlib -g -fomit-frame-pointer
 CFLAGS ?= -Os -nostdlib -fomit-frame-pointer
 LDFLAGS ?= -s
+#LDFLAGS ?=
 DDIR = docs
 DSRC =
 SRC =
@@ -143,5 +144,4 @@ gpush:
 	git push
 
 tarball:
-	cd && \
-	tar jcvf rt0.$(shell date +%Y%m%d%H%M%S).tar.bz2 rt0/
+	cd ../. && tar jcvf rt0.$(shell date +%Y%m%d%H%M%S).tar.bz2 rt0

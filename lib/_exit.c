@@ -7,7 +7,7 @@
 
 void _exit( int r )
 {
-   int ret = syscall1( SYS_exit, r );
+   long ret = syscall1( SYS_exit, r );
    ret = syscall3( SYS_write,
                    1,
                    ( long )( "SYS_exit failed.\n" ),
