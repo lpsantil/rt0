@@ -54,6 +54,7 @@ Try:
 * [lib43][13]
 * [libowfat][14]
 * [libdjb][15]
+* [x86_64 crt0 in a single file][16]
 
 [0]: http://www.etalabs.net/compare_libcs.html
 [1]: https://blogs.oracle.com/ksplice/entry/hello_from_a_libc_free
@@ -71,4 +72,4 @@ Try:
 [13]: https://github.com/lunixbochs/lib43
 [14]: http://www.fefe.de/libowfat/
 [15]: http://www.fefe.de/djb/
-
+[16]: https://gist.github.com/lunixbochs/462ee21c3353c56b910f
