@@ -26,7 +26,7 @@ DSRC =
 SRC =
 OBJ = $(SRC:.c=.o)
 HDR = rt0/rt0.h
-IDIR = inc
+IDIR = include
 INC = $(IDIR)/$(HDR)
 INC += $(IDIR)/rt0/syscall.h
 EDIR = .
@@ -103,9 +103,16 @@ clean:
 	rm -f $(OBJ) $(EXE) $(LOBJ) $(LIB) $(TOBJ) $(TEXE)
 
 install:
-	mkdir -p $(INSTALL_PATH)/bin $(INSTALL_PATH)/include $(INSTALL_PATH)/lib
-	cp -r $(IDIR)/* $(INSTALL_PATH)/include/
-	cp $(LIB) $(INSTALL_PATH)/lib/
+	@>install.list
+	find $(IDIR)\
+		-type f -exec sh -c 'echo $(INSTALL_PATH)/{} >> install.list; cp -v --parents {} $(INSTALL_PATH)' \;
+	echo $(INSTALL_PATH)/$(LIB) >> install.list
+	cp $(LIB) $(INSTALL_PATH)/$(LIB)
+
+uninstall:
+	while read -r file; do \
+		rm -v "$$file";\
+	done < install.list
 
 showconfig:
 	@echo "OS="$(OS)
