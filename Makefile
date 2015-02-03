@@ -26,13 +26,13 @@ DSRC =
 SRC =
 OBJ = $(SRC:.c=.o)
 HDR = rt0/rt0.h
-IDIR = inc
+IDIR = include
 INC = $(IDIR)/$(HDR)
 INC += $(IDIR)/rt0/syscall.h
 EDIR = .
 EXE =
 LNK = rt0
-LDIR = .
+LDIR = lib
 LSRC = $(shell ls lib/*.c)
 LOBJ = $(LSRC:.c=.o)
 LIB = $(LDIR)/lib$(LNK).a
@@ -102,10 +102,20 @@ stop_cd:
 clean:
 	rm -f $(OBJ) $(EXE) $(LOBJ) $(LIB) $(TOBJ) $(TEXE)
 
-install:
-	mkdir -p $(INSTALL_PATH)/bin $(INSTALL_PATH)/include $(INSTALL_PATH)/lib
-	cp -r $(IDIR)/* $(INSTALL_PATH)/include/
-	cp $(LIB) $(INSTALL_PATH)/lib/
+install: $(INC) $(LIB)
+	@# Setup the paths
+	mkdir -p $(INSTALL_PATH)/include/rt0 $(INSTALL_PATH)/lib
+	@# Clear out the old footprint file if it exists
+	rm -f .footprint
+	@# Record install paths then copy files
+	@for T in $(INC) $(LIB); \
+	do ( \
+		echo $(INSTALL_PATH)/$$T >> .footprint; \
+		cp -v --parents $$T $(INSTALL_PATH) \
+	); done
+
+uninstall: .footprint
+	@for T in `cat .footprint`; do rm -v $$T; done
 
 showconfig:
 	@echo "OS="$(OS)

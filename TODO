@@ -1,13 +1,11 @@
 01. Add basic FreeBSD compatibility [https://github.com/lpsantil/rt0/issues/1]
-02. Add .footprint file for `make install`
-03. Add `make uninstall` that uses .footprint [https://github.com/lpsantil/rt0/pull/2]
-04. Test using `-fdata-sections -ffunction-sections -Wl, --gc-sections` in CFLAGS/LDFLAGS
-05. Consider implementing a __RT0_WITH_FASTER_SYSCALL__
-06. Fix dumb dependency on glibc sys/syscall.h for SYS_*
-07. Implement 64-bit returning syscalls
-08. Add clibs support
-09. Consider implementing some subset of stdlib.h
-10. Consider implementing some subset of unistd.h
-11. Consider implementing some subset of the Newlib porting functions
-12. Consider implementing Thread Local Storage POSIX interfaces
-13. Consider implementing C++ constructor/destructor setups
+02. Test using `-fdata-sections -ffunction-sections -Wl, --gc-sections` in CFLAGS/LDFLAGS
+03. Consider implementing a __RT0_WITH_FASTER_SYSCALL__
+04. Fix dumb dependency on glibc sys/syscall.h for SYS_*
+05. Implement 64-bit returning syscalls
+06. Add clibs support
+07. Consider implementing some subset of stdlib.h
+08. Consider implementing some subset of unistd.h
+09. Consider implementing some subset of the Newlib porting functions
+10. Consider implementing Thread Local Storage POSIX interfaces
+11. Consider implementing C++ constructor/destructor setups

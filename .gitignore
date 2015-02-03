@@ -31,3 +31,4 @@
 # Temporary files
 *.pid
 *.tmp
+*.footprint
