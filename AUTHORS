@@ -1,3 +1,6 @@
-Louis P. Santillan [lpsantil@gmail.com] (Nearly all the code so far)
+Louis P. Santillan [lpsantil@gmail.com] (Nearly all the code so far that you don't find in the references)
+
+Contributors
 rian @ HackerNews (suggestions for fixing up envp code)
 ryanmjacobs @ GitHub (suggestion adding `make uninstall`)
+emaste @ GitHub (linker option suggestion for adding basic FreeBSD compatibility)

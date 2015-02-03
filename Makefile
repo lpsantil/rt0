@@ -54,6 +54,15 @@ TDEPS =
 TAP =
 LIBTAP =
 
+######################################################################
+
+# Fix up LDFLAGS for FreeBSD
+ifeq ($(OS), freebsd)
+	LDFLAGS += -Wl,-u_start
+endif
+
+######################################################################
+
 .c.o:
 	$(CC) $(CFLAGS) -I$(IDIR) -c $< -o $@
 

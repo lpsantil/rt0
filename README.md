@@ -1,5 +1,5 @@
 # rt0
-A minimal C runtime for Linux i386 &amp; x86_64
+A minimal C runtime for Linux & FreeBSD on i386 &amp; x86_64
 
 ## Features
 * Implemented in just 101 SLOC of C code.
@@ -28,13 +28,15 @@ Try:
 * `make test`
 * `make runtest`
 * In bash, `DEST=/ PREFIX=usr/local make install`, or simply, `make install`
+* You can also do `make uninstall`
 
 ## Usage
 * Include `rt0/rt0.h` for `__environ`, `_exit`
 * Include `rt0/syscall.h` for `SYS_*`, `syscall0/1/2/3/4/5/6`
 * Define `main` as `int main( int, char**, char** )`
 * Compile your code with `-nostdlib`, e.g., `cc -c prog.c -nostdlib -o prog.o`
-* Link with librt0, e.g., `cc prog.o -nostdlib -lrt0 -o prog`
+* On Linux, link with librt0, e.g., `cc prog.o -nostdlib -lrt0 -o prog`
+* On FreeBSD, link with librt0 using, `cc prog.o -Wl,-u_start -nostdlib -lrt0 -o prog`
 
 ## References
 * [Hello from a libc free world!][1]

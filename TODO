@@ -1,11 +1,10 @@
-01. Add basic FreeBSD compatibility [https://github.com/lpsantil/rt0/issues/1]
-02. Test using `-fdata-sections -ffunction-sections -Wl, --gc-sections` in CFLAGS/LDFLAGS
-03. Consider implementing a __RT0_WITH_FASTER_SYSCALL__
-04. Fix dumb dependency on glibc sys/syscall.h for SYS_*
-05. Implement 64-bit returning syscalls
-06. Add clibs support
-07. Consider implementing some subset of stdlib.h
-08. Consider implementing some subset of unistd.h
-09. Consider implementing some subset of the Newlib porting functions
-10. Consider implementing Thread Local Storage POSIX interfaces
-11. Consider implementing C++ constructor/destructor setups
+* Test using `-fdata-sections -ffunction-sections -Wl, --gc-sections` in CFLAGS/LDFLAGS
+* Consider implementing a __RT0_WITH_FASTER_SYSCALL__
+* Fix dumb dependency on glibc sys/syscall.h for SYS_*
+* Implement 64-bit returning syscalls
+* Add clibs support
+* Consider implementing some subset of stdlib.h
+* Consider implementing some subset of unistd.h
+* Consider implementing some subset of the Newlib porting functions
+* Consider implementing Thread Local Storage POSIX interfaces
+* Consider implementing C++ constructor/destructor setups
