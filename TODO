@@ -8,3 +8,4 @@
 * Consider implementing some subset of the Newlib porting functions
 * Consider implementing Thread Local Storage POSIX interfaces
 * Consider implementing C++ constructor/destructor setups
+* Consider implementing more featureful/accurate FreeBSD implementation
