@@ -53,11 +53,12 @@ Try:
 * [uclibc][10]
 * [dietlibc][11]
 * [Plan9 libc][12]
+* [ELKS libc][13]
 * [gcmurphy libc][13]
-* [lib43][14]
-* [libowfat][15]
-* [libdjb][16]
-* [x86_64 crt0 in a single file][17]
+* [lib43][15]
+* [libowfat][16]
+* [libdjb][17]
+* [x86_64 crt0 in a single file][18]
 
 [0]: http://www.etalabs.net/compare_libcs.html
 [1]: https://blogs.oracle.com/ksplice/entry/hello_from_a_libc_free
@@ -72,8 +73,9 @@ Try:
 [10]: http://www.uclibc.org/
 [11]: http://www.fefe.de/dietlibc/
 [12]: http://git.suckless.org/9base/tree/lib9/libc.h
-[13]: https://bitbucket.org/gcmurphy/libc/src 
-[14]: https://github.com/lunixbochs/lib43
-[15]: http://www.fefe.de/libowfat/
-[16]: http://www.fefe.de/djb/
-[17]: https://gist.github.com/lunixbochs/462ee21c3353c56b910f
+[13]: https://packages.debian.org/wheezy/elks-libc
+[14]: https://bitbucket.org/gcmurphy/libc/src 
+[15]: https://github.com/lunixbochs/lib43
+[16]: http://www.fefe.de/libowfat/
+[17]: http://www.fefe.de/djb/
+[18]: https://gist.github.com/lunixbochs/462ee21c3353c56b910f
