@@ -13,7 +13,7 @@ CORES ?= 1
 
 # Basic feature detection
 OS = $(shell uname)
-ARCH ?= $(shell arch)
+ARCH ?= $(shell uname -m)
 
 ######################################################################
 
@@ -57,7 +57,7 @@ LIBTAP =
 ######################################################################
 
 # Fix up LDFLAGS for FreeBSD
-ifeq ($(OS), freebsd)
+ifeq ($(OS), Freebsd)
 	LDFLAGS += -Wl,-u_start
 endif
 
