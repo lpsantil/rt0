@@ -33,7 +33,7 @@ EDIR = .
 EXE =
 LNK = rt0
 LDIR = lib
-LSRC = $(shell ls src/*.c)
+LSRC = $(shell ls src/lib/*.c)
 LOBJ = $(LSRC:.c=.o)
 LIB = $(LDIR)/lib$(LNK).a
 TDIR = t

@@ -1,5 +1,6 @@
-* Test using `-fdata-sections -ffunction-sections -Wl, --gc-sections` in CFLAGS/LDFLAGS
+* Test using `-fdata-sections -ffunction-sections -Wl,--gc-sections` in CFLAGS/LDFLAGS
 * Consider implementing a __RT0_WITH_FASTER_SYSCALL__
+* Consider implementing rt0-cc driver script
 * Fix dumb dependency on glibc sys/syscall.h for SYS_*
 * Implement 64-bit returning syscalls
 * Add clibs support
@@ -9,3 +10,4 @@
 * Consider implementing Thread Local Storage POSIX interfaces
 * Consider implementing C++ constructor/destructor setups
 * Consider implementing more featureful/accurate FreeBSD implementation
+* Work on make FreeBSD support more complete

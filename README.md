@@ -1,5 +1,5 @@
 # rt0
-A minimal C runtime for Linux & FreeBSD on i386 &amp; x86_64
+A minimal C runtime for Linux on i386 &amp; x86_64
 
 ## Features
 * Implemented in just 101 SLOC of C code.
