@@ -6,7 +6,15 @@
 #ifndef __RT0_SYSCALL__
 #define __RT0_SYSCALL__
 
+/*
 #include <sys/syscall.h>
+*/
+
+#ifdef __LP64__
+   #include <rt0/sys64.h>
+#else
+   #include <rt0/sys32.h>
+#endif
 
 long syscall6( long n, long a0, long a1, long a2, long a3, long a4, long a5 );
 

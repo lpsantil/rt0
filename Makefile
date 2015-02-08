@@ -15,6 +15,16 @@ CORES ?= 1
 OS = $(shell uname)
 ARCH ?= $(shell uname -m)
 
+ifeq ($(ARCH), i686)
+	ARCH = i386
+endif
+ifeq ($(ARCH), i386)
+	MSIZE = 32
+endif
+ifeq ($(ARCH), x86_64)
+	MSIZE = 64
+endif
+
 ######################################################################
 
 #CFLAGS ?= -Os -nostdlib -g -fomit-frame-pointer
@@ -29,6 +39,8 @@ HDR = rt0/rt0.h
 IDIR = include
 INC = $(IDIR)/$(HDR)
 INC += $(IDIR)/rt0/syscall.h
+SYSINC = $(IDIR)/rt0/sys$(MSIZE).h
+INC += $(SYSINC)
 EDIR = .
 EXE =
 LNK = rt0
@@ -68,7 +80,8 @@ endif
 
 all: $(LIB)
 
-$(AOBJ): Makefile
+$(SYSINC): /usr/include/$(ARCH)-linux-gnu/asm/unistd_$(MSIZE).h
+	grep __NR_ $< | sed -e s/__NR_/SYS_/g > $@
 
 $(OBJ): Makefile $(INC)
 
@@ -81,7 +94,7 @@ $(EXE): $(OBJ)
 t/%.exe: t/%.o
 	$(CC) $< -L$(LDIR) -l$(LNK) $(CFLAGS) $(LDFLAGS) -o $@
 
-test: $(TEXE)
+test: $(SYSINC) $(LIB) $(TEXE)
 
 $(TOBJ): $(LIB)
 
@@ -109,14 +122,11 @@ stop_cd:
 	kill -9 $(TMPCD)
 
 clean:
-	rm -f $(OBJ) $(EXE) $(LOBJ) $(LIB) $(TOBJ) $(TEXE)
+	rm -f $(OBJ) $(EXE) $(LOBJ) $(LIB) $(TOBJ) $(TEXE) $(SYSINC)
 
 install: $(INC) $(LIB)
-	@# Setup the paths
 	mkdir -p $(INSTALL_PATH)/include/rt0 $(INSTALL_PATH)/lib
-	@# Clear out the old footprint file if it exists
 	rm -f .footprint
-	@# Record install paths then copy files
 	@for T in $(INC) $(LIB); \
 	do ( \
 		echo $(INSTALL_PATH)/$$T >> .footprint; \
@@ -129,6 +139,8 @@ uninstall: .footprint
 showconfig:
 	@echo "OS="$(OS)
 	@echo "ARCH="$(ARCH)
+	@echo "MSIZE="$(MSIZE)
+	@echo "SYSINC="$(SYSINC)
 	@echo "DEST="$(DEST)
 	@echo "PREFIX="$(PREFIX)
 	@echo "INSTALL_PATH="$(INSTALL_PATH)
