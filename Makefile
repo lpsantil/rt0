@@ -27,9 +27,11 @@ endif
 
 ######################################################################
 
-#CFLAGS ?= -Os -nostdlib -g -fomit-frame-pointer
 CFLAGS ?= -Os -nostdlib -fomit-frame-pointer
+#CFLAGS ?= -Os -nostdlib -g -fomit-frame-pointer
+#CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -fdata-sections -ffunction-sections
 LDFLAGS ?= -s
+#LDFLAGS ?= -s -Wl,--gc-sections
 #LDFLAGS ?=
 DDIR = docs
 DSRC =
@@ -82,6 +84,8 @@ all: $(LIB)
 
 $(SYSINC): /usr/include/$(ARCH)-linux-gnu/asm/unistd_$(MSIZE).h
 	grep __NR_ $< | sed -e s/__NR_/SYS_/g > $@
+
+$(LOBJ): Makefile $(INC)
 
 $(OBJ): Makefile $(INC)
 

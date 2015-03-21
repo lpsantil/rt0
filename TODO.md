@@ -1,4 +1,3 @@
-* Test using `-fdata-sections -ffunction-sections -Wl,--gc-sections` in CFLAGS/LDFLAGS
 * Add better testing for each syscall
 * Implement 64-bit returning syscalls
 * Consider implementing a `__RT0_WITH_FASTER_SYSCALL__` define (more register/stack efficient versions that will result in larger binaries)
