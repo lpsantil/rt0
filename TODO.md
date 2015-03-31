@@ -1,5 +1,6 @@
-* Add better testing for each syscall
+* Add better testing for each syscall4/5/6
 * Implement 64-bit returning syscalls
+* Implement 64-bit argument syscalls
 * Consider implementing a `__RT0_WITH_FASTER_SYSCALL__` define (more register/stack efficient versions that will result in larger binaries)
 * Consider implementing an rt0-cc driver script
 * Add clibs support

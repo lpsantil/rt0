@@ -126,7 +126,7 @@ stop_cd:
 	kill -9 $(TMPCD)
 
 clean:
-	rm -f $(OBJ) $(EXE) $(LOBJ) $(LIB) $(TOBJ) $(TEXE) $(SYSINC)
+	rm -f $(OBJ) $(EXE) $(LOBJ) $(LIB) $(TOBJ) $(TEXE) $(SYSINC) *.tmp
 
 install: $(INC) $(LIB)
 	mkdir -p $(INSTALL_PATH)/include/rt0 $(INSTALL_PATH)/lib
