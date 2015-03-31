@@ -28,7 +28,7 @@ int main( int argc, char** argv, char** envp )
    f = syscall2( SYS_creat, ( long )( fn ), 0644 );
    if( 0 > f )
    {
-      print( "\topen failed\n" );
+      print( "\tSYS_creat failed\n" );
       return( -1 );
    }
 

@@ -19,32 +19,6 @@ int str_len( const char *string )
    return length;
 }
 
-void printInt( int i )
-{
-   char* nums = "0123456789";
-   int d = 1,
-       r;
-
-   if( i < 0 )
-   {
-      print( "-" );
-
-      printInt( -i );
-
-      return;
-   }
-
-   d = i / 10;
-   r = i % 10;
-
-   if( d != 0 )
-   {
-     printInt( d );
-   }
-
-   write( 1, &( nums[ r ] ), 1 );
-}
-
 int main( int argc, char** argv, char** envp )
 {
    int f;
@@ -54,7 +28,7 @@ int main( int argc, char** argv, char** envp )
    f = syscall2( SYS_creat, ( long )( fn ), 0644 );
    if( 0 > f )
    {
-      print( "\topen failed\n" );
+      print( "\tSYS_creat failed\n" );
       return( -1 );
    }
 
