@@ -16,7 +16,7 @@ int str_len( const char *string )
 {
    int length = 0;
    while( *string ) { string++; length++; }
-   return length;
+   return( length );
 }
 
 int main( int argc, char** argv, char** envp )
