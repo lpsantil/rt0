@@ -28,8 +28,11 @@ endif
 ######################################################################
 
 CFLAGS ?= -Os -nostdlib -fomit-frame-pointer
-#CFLAGS ?= -Os -nostdlib -g -fomit-frame-pointer
+#CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -D__RT0_WITH_FASTER_SYSCALL__=1
 #CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -fdata-sections -ffunction-sections
+#CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -g
+#CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -D__RT0_WITH_FASTER_SYSCALL__=1 -g
+#CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -fdata-sections -ffunction-sections -g
 LDFLAGS ?= -s
 #LDFLAGS ?= -s -Wl,--gc-sections
 #LDFLAGS ?=
@@ -76,6 +79,8 @@ ifeq ($(OS), Freebsd)
 endif
 
 ######################################################################
+
+.PHONY: all test runtest clean start_ci stop_ci start_ct stop_ct start_cd stop_cd install uninstall showconfig gstat gpush tarball
 
 .c.o:
 	$(CC) $(CFLAGS) -I$(IDIR) -c $< -o $@
