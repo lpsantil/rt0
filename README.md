@@ -37,7 +37,7 @@ Try:
 * Compile your code with `-nostdlib`, e.g., `cc -c prog.c -nostdlib -o prog.o`
 * On Linux, link with librt0, e.g., `cc prog.o -nostdlib -lrt0 -o prog`
 * On FreeBSD, link with librt0 using, `cc prog.o -Wl,-u_start -nostdlib -lrt0 -o prog`
-* To enable a faster version of the syscalls, in the `Makefile`, comment line 30 and uncomment line 31
+* To enable a slightly faster version of the syscalls, in the `Makefile`, comment line 30 and uncomment line 31, and add `#define __RT0_WITH_FASTER_SYSCALL__` before you include `rt0/syscall.h`
 * To enable `-fdata-sections -ffunction-sections`, in the `Makefile`, comment line 30 and uncomment line 32
 * To enable a debug build, in the `Makefile`, comment line 30 & 36, then uncomment line 33 & 38
 
