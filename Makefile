@@ -33,9 +33,9 @@ CFLAGS ?= -Os -nostdlib -fomit-frame-pointer
 #CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -g
 #CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -D__RT0_WITH_FASTER_SYSCALL__=1 -g
 #CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -fdata-sections -ffunction-sections -g
-LDFLAGS ?= -s
-#LDFLAGS ?= -s -Wl,--gc-sections
-#LDFLAGS ?=
+LDFLAGS ?= -s -nostdlib
+#LDFLAGS ?= -s -nostdlib -Wl,--gc-sections
+#LDFLAGS ?= -nostdlib
 DDIR = docs
 DSRC =
 SRC =
@@ -103,7 +103,7 @@ $(EXE): $(OBJ)
 	$(LD) $^ -o $(EDIR)/$@
 
 t/%.exe: t/%.o
-	$(CC) $< -L$(LDIR) -l$(LNK) $(CFLAGS) $(LDFLAGS) -o $@
+	$(CC) -L$(LDIR) -l$(LNK) $(LDFLAGS) $< -o $@
 
 test: $(SYSINC) $(LIB) $(TEXE)
 
