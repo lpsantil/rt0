@@ -6,6 +6,9 @@
 #ifndef __RT0_SYSCALL__
 #define __RT0_SYSCALL__
 
+#include <rt0/rt0.h>
+#include <asm-generic/errno.h>
+
 #ifdef __LP64__
    #include <rt0/sys64.h>
 #else

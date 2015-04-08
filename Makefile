@@ -79,6 +79,8 @@ ifeq ($(OS), Freebsd)
 endif
 
 ######################################################################
+######################## DO NOT MODIFY BELOW #########################
+######################################################################
 
 .PHONY: all test runtest clean start_ci stop_ci start_ct stop_ct start_cd stop_cd install uninstall showconfig gstat gpush tarball
 

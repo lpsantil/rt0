@@ -2,23 +2,13 @@
 A minimal C runtime for Linux on i386 &amp; x86_64
 
 ## Features
-* Implemented in just 101 SLOC of C code.
+* Implemented in just 195 SLOC of C code.
 * Just 9 lines of GCC inline ASM for i386, or,
 * Just 6 lines GCC inline ASM for x86_64
-* Small runtime providing just `argc`, `argv`, `envp`, `__environ`, `_exit`, and `syscall0/1/2/3/4/5/6`
+* Small runtime providing just `argc`, `argv`, `envp`, `__environ`, `errno`, `_exit`, and `syscall0/1/2/3/4/5/6`
 * Small binary sizes vs. other libc's
 
-| Binary      | Arch   | Size | Purpose                  | Compile Args                          |
--------------:|:-------|-----:|:-------------------------|:--------------------------------------|
-| librt0.a    | i386   | 4410 | Startup code+syscall     | -Os -nostdlib -fomit-frame-pointer    |
-| librt0.a    | x86_64 | 4590 | Startup code+syscall     | -Os -nostdlib -fomit-frame-pointer    |
-| t/hello.exe | i386   | 1232 | Hello World\n            | -Os -s -nostdlib -fomit-frame-pointer |
-| t/hello.exe | x86_64 | 1464 | Hello World\n            | -Os -s -nostdlib -fomit-frame-pointer |
-| hello.exe   | i386   | 5532 | Hello World\n with glibc | -Os -s -fomit-frame-pointer           |
-| hello.exe   | x86_64 | 6240 | Hello World\n with glibc | -Os -s -fomit-frame-pointer           |
-
-Compiler: GCC 4.8.2, OS: Ubuntu 14.04.1, Source: Author
-
+See STATS.md to see how rt0 fares.
 See the [musl libc comparison][0] to see how other libc's fare.
 
 ## Building

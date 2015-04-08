@@ -8,6 +8,9 @@
 void _exit( int r )
 {
    long ret = syscall1( SYS_exit, r );
+
+   ret = ( 0 > ret ? errno = -ret, -1 : ret );
+
    ret = syscall3( SYS_write,
                    1,
                    ( long )( "SYS_exit failed.\n" ),

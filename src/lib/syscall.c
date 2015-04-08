@@ -2,8 +2,12 @@
  * All rights reserved.
  * See LICENSE for licensing details.
  */
+#include <rt0/rt0.h>
 
 #define __SYSCALL_OUTPUT_REG__            "=a" ( ret )
+
+#define __SYSCALL_CHK_ERROR__()                      \
+   ret = ( 0 > ret ? errno = -ret, -1 : ret )
 
 #ifdef __LP64__
    #define __SYSCALL_OPCODE__                "syscall"
@@ -35,13 +39,15 @@
 
 long syscall6( long n, long a0, long a1, long a2, long a3, long a4, long a5 )
 {
-   unsigned long ret;
+   long ret;
    __SYSCALL_PREAMBLE__();
 
    __asm__ volatile( __SYSCALL_OPCODE__
                      : __SYSCALL_OUTPUT_REG__
                      : __SYSCALL_INPUT_REGS__
                      : __SYSCALL_CLOBBERS__ );
+
+   __SYSCALL_CHK_ERROR__();
 
    return( ret );
 }
@@ -101,7 +107,7 @@ long syscall6( long n, long a0, long a1, long a2, long a3, long a4, long a5 )
 
 long syscall5( long n, long a0, long a1, long a2, long a3, long a4 )
 {
-   unsigned long ret;
+   long ret;
    __SYSCALL_PREAMBLE5__();
 
    __asm__ volatile( __SYSCALL_OPCODE__
@@ -109,12 +115,14 @@ long syscall5( long n, long a0, long a1, long a2, long a3, long a4 )
                      : __SYSCALL_INPUT_REGS5__
                      : __SYSCALL_CLOBBERS__ );
 
+   __SYSCALL_CHK_ERROR__();
+
    return( ret );
 }
 
 long syscall4( long n, long a0, long a1, long a2, long a3 )
 {
-   unsigned long ret;
+   long ret;
    __SYSCALL_PREAMBLE4__();
 
    __asm__ volatile( __SYSCALL_OPCODE__
@@ -122,12 +130,14 @@ long syscall4( long n, long a0, long a1, long a2, long a3 )
                      : __SYSCALL_INPUT_REGS4__
                      : __SYSCALL_CLOBBERS__ );
 
+   __SYSCALL_CHK_ERROR__();
+
    return( ret );
 }
 
 long syscall3( long n, long a0, long a1, long a2 )
 {
-   unsigned long ret;
+   long ret;
    __SYSCALL_PREAMBLE3__();
 
    __asm__ volatile( __SYSCALL_OPCODE__
@@ -135,12 +145,14 @@ long syscall3( long n, long a0, long a1, long a2 )
                      : __SYSCALL_INPUT_REGS3__
                      : __SYSCALL_CLOBBERS__ );
 
+   __SYSCALL_CHK_ERROR__();
+
    return( ret );
 }
 
 long syscall2( long n, long a0, long a1 )
 {
-   unsigned long ret;
+   long ret;
    __SYSCALL_PREAMBLE2__();
 
    __asm__ volatile( __SYSCALL_OPCODE__
@@ -148,12 +160,14 @@ long syscall2( long n, long a0, long a1 )
                      : __SYSCALL_INPUT_REGS2__
                      : __SYSCALL_CLOBBERS__ );
 
+   __SYSCALL_CHK_ERROR__();
+
    return( ret );
 }
 
 long syscall1( long n, long a0 )
 {
-   unsigned long ret;
+   long ret;
    __SYSCALL_PREAMBLE1__();
 
    __asm__ volatile( __SYSCALL_OPCODE__
@@ -161,18 +175,22 @@ long syscall1( long n, long a0 )
                      : __SYSCALL_INPUT_REGS1__
                      : __SYSCALL_CLOBBERS__ );
 
+   __SYSCALL_CHK_ERROR__();
+
    return( ret );
 }
 
 long syscall0( long n )
 {
-   unsigned long ret;
+   long ret;
    __SYSCALL_PREAMBLE0__();
 
    __asm__ volatile( __SYSCALL_OPCODE__
                      : __SYSCALL_OUTPUT_REG__
                      : __SYSCALL_INPUT_REGS0__
                      : __SYSCALL_CLOBBERS__ );
+
+   __SYSCALL_CHK_ERROR__();
 
    return( ret );
 }
