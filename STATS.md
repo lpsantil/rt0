@@ -1,3 +1,5 @@
+# rt0 library & binary sizes
+
 | Binary      | Arch   | Size | Purpose                  | Compile Args                          |
 -------------:|:-------|-----:|:-------------------------|:--------------------------------------|
 | librt0.a    | i386   | 3502 | Startup code+syscall     | -Os -nostdlib -fomit-frame-pointer    |
