@@ -40,6 +40,7 @@ DDIR = docs
 DSRC =
 SRC =
 OBJ = $(SRC:.c=.o)
+SDEPS = $(SRC:.c=.d)
 HDR = rt0/rt0.h
 IDIR = include
 INC = $(IDIR)/$(HDR)
@@ -52,15 +53,17 @@ LNK = rt0
 LDIR = lib
 LSRC = $(shell ls src/lib/*.c)
 LOBJ = $(LSRC:.c=.o)
+LSDEPS = $(LSRC:.c=.d)
 LIB = $(LDIR)/lib$(LNK).a
 TDIR = t
 TSRC = $(shell ls t/*.c)
 TOBJ = $(TSRC:.c=.o)
+TSDEPS = $(TSRC:.c=.d)
 TEXE = $(TOBJ:.o=.exe)
 
-#TMPCI = $(shell cat tmp.ci.pid)
-#TMPCT = $(shell cat tmp.ct.pid)
-#TMPCD = $(shell cat tmp.cd.pid)
+TMPCI = -$(shell cat tmp.ci.pid)
+TMPCT = -$(shell cat tmp.ct.pid)
+TMPCD = -$(shell cat tmp.cd.pid)
 
 # DEPS
 DEPS =
@@ -82,34 +85,29 @@ endif
 ######################## DO NOT MODIFY BELOW #########################
 ######################################################################
 
-.PHONY: all test runtest clean start_ci stop_ci start_ct stop_ct start_cd stop_cd install uninstall showconfig gstat gpush tarball
+.PHONY: all test runtest clean start_ci stop_ci start_ct stop_ct
+.PHONY: start_cd stop_cd install uninstall showconfig gstat gpush
+.PHONY: tarball
 
-.c.o:
+%.o: %.c $(INC) Makefile
 	$(CC) $(CFLAGS) -I$(IDIR) -c $< -o $@
+#	$(CC) $(CFLAGS) -I$(IDIR) -MMD -MP -c $< -o $@
+
+t/%.exe: t/%.o $(LIB) Makefile
+	$(CC) -L$(LDIR) -l$(LNK) $(LDFLAGS) $< -o $@
 
 all: $(LIB)
 
 $(SYSINC): /usr/include/$(ARCH)-linux-gnu/asm/unistd_$(MSIZE).h
 	grep __NR_ $< | sed -e s/__NR_/SYS_/g > $@
 
-$(LOBJ): Makefile $(INC)
-
-$(OBJ): Makefile $(INC)
-
 $(LIB): $(LOBJ)
 	$(AR) -rcs $@ $^
 
-$(EXE): $(OBJ)
-	$(LD) $^ -o $(EDIR)/$@
+#$(EXE): $(OBJ)
+#	$(LD) $^ -o $(EDIR)/$@
 
-t/%.exe: t/%.o
-	$(CC) -L$(LDIR) -l$(LNK) $(LDFLAGS) $< -o $@
-
-test: $(SYSINC) $(LIB) $(TEXE)
-
-$(TOBJ): $(LIB)
-
-$(TEXE): $(TOBJ)
+test: $(SYSINC) $(LIB) $(TEXE) Makefile
 
 runtest: $(TEXE)
 	for T in $^ ; do $(TAP) $$T ; done
@@ -133,7 +131,7 @@ stop_cd:
 	kill -9 $(TMPCD)
 
 clean:
-	rm -f $(OBJ) $(EXE) $(LOBJ) $(LIB) $(TOBJ) $(TEXE) $(SYSINC) *.tmp
+	rm -f $(OBJ) $(EXE) $(LOBJ) $(LIB) $(TOBJ) $(TEXE) $(SYSINC) *.tmp $(SDEPS) $(LSDEPS) $(TSDEPS)
 
 install: $(INC) $(LIB)
 	mkdir -p $(INSTALL_PATH)/include/rt0 $(INSTALL_PATH)/lib
@@ -146,6 +144,8 @@ install: $(INC) $(LIB)
 
 uninstall: .footprint
 	@for T in `cat .footprint`; do rm -v $$T; done
+
+-include $(SDEPS) $(LSDEPS) $(TSDEPS)
 
 showconfig:
 	@echo "OS="$(OS)
