@@ -20,4 +20,4 @@
 | t/null.exe  | i386   | 1368 | Empty main               | -Os -s -nostdlib -fomit-frame-pointer |
 | t/null.exe  | x86_64 | 1560 | Empty main               | -Os -s -nostdlib -fomit-frame-pointer |
 
-Compiler: GCC 4.8.2, GOLD LD 1.11 (Binutils 2.24) OS: Ubuntu 14.04.1, Source: Author
+Compiler: GCC 4.8.2, gold linker 1.11 (binutils 2.24) OS: Ubuntu 14.04.1, Source: Author

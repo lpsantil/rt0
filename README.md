@@ -6,7 +6,7 @@ A minimal C runtime for Linux on i386 &amp; x86_64
 * Just 9 lines of GCC inline ASM for i386, or,
 * Just 6 lines GCC inline ASM for x86_64
 * Small runtime providing just `argc`, `argv`, `envp`, `__environ`, `errno`, `_exit`, and `syscall0/1/2/3/4/5/6`
-* Uses gold (Google LD, part of GNU Binutils) instead of GNU ld to save 100-200 bytes at static link time
+* Uses [gold][19] (Google LD, part of GNU Binutils) instead of GNU ld to save 100-200 bytes at static link time
 * Hello World in just 1140 bytes (i386) or 1328 bytes (x86_64)
 * Small binary sizes vs. other libc's
 
@@ -29,9 +29,10 @@ Try:
 * Compile your code with `-nostdlib`, e.g., `cc -c prog.c -nostdlib -o prog.o`
 * On Linux, link with librt0, e.g., `cc prog.o -nostdlib -lrt0 -o prog`
 * On FreeBSD, link with librt0 using, `cc prog.o -Wl,-u_start -nostdlib -lrt0 -o prog`
-* To enable a slightly faster version of the syscalls, in the `Makefile`, comment line 30 and uncomment line 31, and add `#define __RT0_WITH_FASTER_SYSCALL__` before you include `rt0/syscall.h`
-* To enable `-fdata-sections -ffunction-sections`, in the `Makefile`, comment line 30 and uncomment line 32
-* To enable a debug build, in the `Makefile`, comment line 30 & 36, then uncomment line 33 & 38
+* To enable GNU ld, type `make LD=ld`
+* To enable a slightly faster version of the syscalls, type `make WITH_FAST_SYSCALL=1`
+* To enable `-fdata-sections -ffunction-sections`, type `make WITH_SECTIONS=1`
+* To enable a debug build, type `make WITH_DEBUG=1`
 
 ## References
 * [Hello from a libc free world!][1]
@@ -41,6 +42,7 @@ Try:
 * [GCC Inline Assembly HOWTO][5]
 * [System V ABI/Calling Convention][6]
 * [Linux syscall interface][7]
+* [gold - Google ld][19]
 
 ## Other small libc's and runtimes
 * [musl libc][8]
@@ -74,3 +76,4 @@ Try:
 [16]: http://www.fefe.de/libowfat/
 [17]: http://www.fefe.de/djb/
 [18]: https://gist.github.com/lunixbochs/462ee21c3353c56b910f
+[19]: http://en.wikipedia.org/wiki/Gold_%28linker%29

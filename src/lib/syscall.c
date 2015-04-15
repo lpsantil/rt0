@@ -4,6 +4,12 @@
  */
 #include <rt0/rt0.h>
 
+#ifdef __LP64__
+   #include <rt0/sys64.h>
+#else
+   #include <rt0/sys32.h>
+#endif
+
 #define __SYSCALL_OUTPUT_REG__            "=a" ( ret )
 
 #define __SYSCALL_CHK_ERROR__()                      \

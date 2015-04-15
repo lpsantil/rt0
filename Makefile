@@ -27,14 +27,9 @@ endif
 # Comment next line if you want System Default/GNU BFD LD instead
 LD = gold
 CFLAGS ?= -Os -nostdlib -fomit-frame-pointer
-#CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -D__RT0_WITH_FASTER_SYSCALL__=1
-#CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -fdata-sections -ffunction-sections
-#CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -g
-#CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -D__RT0_WITH_FASTER_SYSCALL__=1 -g
-#CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -fdata-sections -ffunction-sections -g
 LDFLAGS ?= -s -nostdlib
 #LDFLAGS ?= -s -nostdlib -Wl,--gc-sections
-#LDFLAGS ?= -nostdlib
+
 DDIR = docs
 DSRC =
 SRC =
@@ -75,6 +70,15 @@ LIBTAP =
 
 ######################################################################
 
+ifeq ($(WITH_SECTIONS), 1)
+	CFLAGS += -fdata-sections -ffunction-sections
+endif
+
+ifeq ($(WITH_DEBUG), 1)
+	CFLAGS += -g
+	LDFLAGS = -nostdlib -g
+endif
+
 # Fix up LDFLAGS for FreeBSD
 ifeq ($(OS), Freebsd)
 	LDFLAGS += -Wl,-u_start
@@ -89,8 +93,7 @@ endif
 .PHONY: tarball
 
 %.o: %.c $(INC) Makefile
-	$(CC) $(CFLAGS) -I$(IDIR) -c $< -o $@
-#	$(CC) $(CFLAGS) -I$(IDIR) -MMD -MP -c $< -o $@
+	$(CC) $(CFLAGS) -MMD -MP -I$(IDIR) -c $< -o $@
 
 t/%.exe: t/%.o $(LIB) Makefile
 	$(LD) -L$(LDIR) -l$(LNK) $(LDFLAGS) $< -o $@
@@ -99,12 +102,15 @@ all: $(LIB)
 
 $(SYSINC): /usr/include/$(ARCH)-linux-gnu/asm/unistd_$(MSIZE).h
 	grep __NR_ $< | sed -e s/__NR_/SYS_/g > $@
+ifeq ($(WITH_FAST_SYSCALL), 1)
+	echo "\n#define __RT0_WITH_FASTER_SYSCALL__ 1\n" >> $@
+endif
 
 $(LIB): $(LOBJ)
 	$(AR) -rcs $@ $^
 
-#$(EXE): $(OBJ)
-#	$(LD) $^ -o $(EDIR)/$@
+$(EXE): $(OBJ)
+	$(LD) $^ $(LDFLAGS) -o $(EDIR)/$@
 
 test: $(SYSINC) $(LIB) $(TEXE) Makefile
 
