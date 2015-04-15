@@ -2,10 +2,7 @@
 # All rights reserved.
 # See LICENSE for licensing details.
 
-DEST ?=
-PREFIX ?= usr/local
-
-INSTALL_PATH = $(DEST)/$(PREFIX)
+DESTDIR ?= /usr/local
 
 ######################################################################
 # Core count
@@ -27,6 +24,8 @@ endif
 
 ######################################################################
 
+# Comment next line if you want System Default/GNU BFD LD instead
+LD = gold
 CFLAGS ?= -Os -nostdlib -fomit-frame-pointer
 #CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -D__RT0_WITH_FASTER_SYSCALL__=1
 #CFLAGS ?= -Os -nostdlib -fomit-frame-pointer -fdata-sections -ffunction-sections
@@ -61,9 +60,9 @@ TOBJ = $(TSRC:.c=.o)
 TSDEPS = $(TSRC:.c=.d)
 TEXE = $(TOBJ:.o=.exe)
 
-TMPCI = -$(shell cat tmp.ci.pid)
-TMPCT = -$(shell cat tmp.ct.pid)
-TMPCD = -$(shell cat tmp.cd.pid)
+TMPCI = $(shell cat tmp.ci.pid)
+TMPCT = $(shell cat tmp.ct.pid)
+TMPCD = $(shell cat tmp.cd.pid)
 
 # DEPS
 DEPS =
@@ -94,7 +93,7 @@ endif
 #	$(CC) $(CFLAGS) -I$(IDIR) -MMD -MP -c $< -o $@
 
 t/%.exe: t/%.o $(LIB) Makefile
-	$(CC) -L$(LDIR) -l$(LNK) $(LDFLAGS) $< -o $@
+	$(LD) -L$(LDIR) -l$(LNK) $(LDFLAGS) $< -o $@
 
 all: $(LIB)
 
@@ -134,12 +133,12 @@ clean:
 	rm -f $(OBJ) $(EXE) $(LOBJ) $(LIB) $(TOBJ) $(TEXE) $(SYSINC) *.tmp $(SDEPS) $(LSDEPS) $(TSDEPS)
 
 install: $(INC) $(LIB)
-	mkdir -p $(INSTALL_PATH)/include/rt0 $(INSTALL_PATH)/lib
+	mkdir -p $(DESTDIR)/include/rt0 $(DESTDIR)/lib
 	rm -f .footprint
 	@for T in $(INC) $(LIB); \
 	do ( \
-		echo $(INSTALL_PATH)/$$T >> .footprint; \
-		cp -v --parents $$T $(INSTALL_PATH) \
+		echo $(DESTDIR)/$$T >> .footprint; \
+		cp -v --parents $$T $(DESTDIR) \
 	); done
 
 uninstall: .footprint
@@ -152,9 +151,7 @@ showconfig:
 	@echo "ARCH="$(ARCH)
 	@echo "MSIZE="$(MSIZE)
 	@echo "SYSINC="$(SYSINC)
-	@echo "DEST="$(DEST)
-	@echo "PREFIX="$(PREFIX)
-	@echo "INSTALL_PATH="$(INSTALL_PATH)
+	@echo "DESTDIR="$(DESTDIR)
 	@echo "CFLAGS="$(CFLAGS)
 	@echo "LDFLAGS="$(LDFLAGS)
 	@echo "DDIR="$(DDIR)

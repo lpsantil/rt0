@@ -6,6 +6,8 @@ A minimal C runtime for Linux on i386 &amp; x86_64
 * Just 9 lines of GCC inline ASM for i386, or,
 * Just 6 lines GCC inline ASM for x86_64
 * Small runtime providing just `argc`, `argv`, `envp`, `__environ`, `errno`, `_exit`, and `syscall0/1/2/3/4/5/6`
+* Uses gold (Google LD, part of GNU Binutils) instead of GNU ld to save 100-200 bytes at static link time
+* Hello World in just 1140 bytes (i386) or 1328 bytes (x86_64)
 * Small binary sizes vs. other libc's
 
 See STATS.md to see how rt0 fares.
@@ -17,7 +19,7 @@ Try:
 * `make librt0.a`
 * `make test`
 * `make runtest`
-* In bash, `DEST=/ PREFIX=usr/local make install`, or simply, `make install`
+* `make DESTDIR=/usr/local install`, or simply, `make install`
 * You can also do `make uninstall`
 
 ## Usage
