@@ -32,5 +32,3 @@
 *.pid
 *.tmp
 *.footprint
-*.log
-*.d

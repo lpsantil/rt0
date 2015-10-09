@@ -25,9 +25,10 @@ endif
 ######################################################################
 
 # Comment next line if you want System Default/GNU BFD LD instead
-LD = gold
-CFLAGS ?= -Os -nostdlib -fomit-frame-pointer
-LDFLAGS ?= -s -nostdlib
+#LD = gold
+CFLAGS ?= -Os -Wall -ansi -pedantic -nostdlib -fomit-frame-pointer -fno-stack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-unroll-loops -fmerge-all-constants -fno-ident -mfpmath=387 -mfancy-math-387 -ffunction-sections -fdata-sections -Wl,--gc-sections
+LDFLAGS ?= -s -nostdlib -z norelro --hash-style=sysv --build-id=none --gc-sections
+#LDFLAGS ?= -g -nostdlib
 #LDFLAGS ?= -s -nostdlib -Wl,--gc-sections
 
 DDIR = docs
@@ -58,6 +59,8 @@ TEXE = $(TOBJ:.o=.exe)
 TMPCI = $(shell cat tmp.ci.pid)
 TMPCT = $(shell cat tmp.ct.pid)
 TMPCD = $(shell cat tmp.cd.pid)
+
+CILOG ?= tmp.ci.log
 
 # DEPS
 DEPS =
@@ -118,7 +121,7 @@ runtest: $(TEXE)
 	for T in $^ ; do $(TAP) $$T ; done
 
 start_ci:
-	watch time -p make clean all & echo $$! > tmp.ci.pid
+	( watch time -p make clean all ) &> $(CILOG) & echo $$! > tmp.ci.pid
 
 stop_ci:
 	kill -9 $(TMPCI)

@@ -1,11 +1,6 @@
 #include <rt0/syscall.h>
 
-void print( const char* string )
-{
-   write( 1, string, str_len( string ) );
-}
-
-int write( int f, char* d, int l )
+int write( int f, const char* d, int l )
 {
    int ret = syscall3( SYS_write, f, ( long )( d ), l );
 
@@ -17,6 +12,11 @@ int str_len( const char *string )
    int length = 0;
    while( *string ) { string++; length++; }
    return( length );
+}
+
+void print( const char* string )
+{
+   write( 1, string, str_len( string ) );
 }
 
 void printInt( int i )
