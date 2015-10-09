@@ -106,7 +106,7 @@ int main( int argc, char **argv, char **envp )
    printLongHex( ( long )( p ) );               print( ":" );
    printLongHex( ( long )( p - brkp ) );        print( "\n" );
 
-   print( "...Allocating bytes...\n" );
+   print( "...Allocating 4kb...\n" );
    p = sbrk( 4 * 1024 );
    print( "Address of start_brkp/new_brkp/brkp/p/delta:\n" );
    printLongHex( ( long )( start_brkp ) );      print( ":" );
@@ -115,7 +115,7 @@ int main( int argc, char **argv, char **envp )
    printLongHex( ( long )( p ) );               print( ":" );
    printLongHex( ( long )( p - brkp ) );       print( "\n" );
 
-   print( "...Allocating bytes...\n" );
+   print( "...Allocating 4kb more...\n" );
    p = sbrk( 4 * 1024 );
    print( "Address of p: " );
    printLongHex( ( long )( p ) );              print( "\n" );
