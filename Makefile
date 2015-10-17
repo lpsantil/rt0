@@ -96,6 +96,7 @@ endif
 .PHONY: tarball
 
 %.o: %.c $(INC) Makefile
+	head $(SYSINC)
 	$(CC) $(CFLAGS) -MMD -MP -I$(IDIR) -c $< -o $@
 
 t/%.exe: t/%.o $(LIB) Makefile
