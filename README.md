@@ -14,9 +14,9 @@ A minimal C runtime for Linux on i386 &amp; x86_64
 See [STATS.md][20] to see how rt0 fares.
 See the [musl libc comparison][0] to see how other libc's fare.
 
-| Branch | Status             |
-|--------|--------------------|
-| master | [Build Status][CI] |	
+| Branch | Status |
+|--------|--------|
+| master | [CI]   |	
 
 ## Building
 Try:
