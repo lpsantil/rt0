@@ -96,7 +96,6 @@ endif
 .PHONY: tarball
 
 %.o: %.c $(INC) Makefile
-	head $(SYSINC)
 	$(CC) $(CFLAGS) -MMD -MP -I$(IDIR) -c $< -o $@
 
 t/%.exe: t/%.o $(LIB) Makefile
@@ -105,7 +104,8 @@ t/%.exe: t/%.o $(LIB) Makefile
 all: $(LIB)
 
 $(SYSINC): /usr/include/$(ARCH)-linux-gnu/asm/unistd_$(MSIZE).h
-	grep __NR_ $< | sed -e s/__NR_/SYS_/g > $@
+	echo "\n#define __SYSCALL(x,y)\n" >> $@
+	grep __NR_ $< | sed -e s/__NR_/SYS_/g >> $@
 ifeq ($(WITH_FAST_SYSCALL), 1)
 	echo "\n#define __RT0_WITH_FASTER_SYSCALL__ 1\n" >> $@
 endif
