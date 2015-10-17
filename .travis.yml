@@ -1,3 +1,4 @@
+sudo: false
 language: c
 install: true
 script: make WITH_FAST_SYSCALL=1 test
