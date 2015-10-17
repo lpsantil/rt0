@@ -14,6 +14,10 @@ A minimal C runtime for Linux on i386 &amp; x86_64
 See [STATS.md][20] to see how rt0 fares.
 See the [musl libc comparison][0] to see how other libc's fare.
 
+| Branch | Status                |
+|--------|-----------------------|
+| master | [![Build Status][CI]] |	
+
 ## Building
 Try:
 * `make`
@@ -89,3 +93,5 @@ Try:
 [22]: http://stackoverflow.com/questions/5422061/malloc-implementation
 [23]: http://danluu.com/malloc-tutorial/
 [24]: http://elinux.org/images/b/b5/Elc2013_Kobayashi.pdf
+
+[CI]: https://travis-ci.org/lpsantil/rt0.svg?branch=master
