@@ -109,6 +109,7 @@ $(SYSINC): /usr/include/$(ARCH)-linux-gnu/asm/unistd_$(MSIZE).h
 ifeq ($(WITH_FAST_SYSCALL), 1)
 	echo "\n#define __RT0_WITH_FASTER_SYSCALL__ 1\n" >> $@
 endif
+	echo "\n#undef __SYSCALL\n" >> $@
 
 $(LIB): $(LOBJ)
 	$(AR) -rcs $@ $^
