@@ -7,4 +7,3 @@ before_install:
 #  - sudo apt-get install -qq valgrind
 install: true
 script: make WITH_FAST_SYSCALL=1 && make WITH_FAST_SYSCALL=1 test
-sudo: false
