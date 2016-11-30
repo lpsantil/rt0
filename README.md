@@ -54,6 +54,7 @@ Try:
 * [malloc implementation@Stack Overflow][22]
 * [A Quick Tutorial on Implementing and Debugging Malloc, Free, Calloc, and Realloc][23]
 * [Tips of malloc & free][24]
+* [Writing C software without the standard library - Linux Edition][25]
 
 ## Other small libc's and runtimes
 * [musl libc][8]
@@ -93,6 +94,7 @@ Try:
 [22]: http://stackoverflow.com/questions/5422061/malloc-implementation
 [23]: http://danluu.com/malloc-tutorial/
 [24]: http://elinux.org/images/b/b5/Elc2013_Kobayashi.pdf
+[25]: https://web.archive.org/web/20161129082520/http://weeb.ddns.net/0/programming/c_without_standard_library_linux.txt
 
 [CI]: https://travis-ci.org/lpsantil/rt0.svg?branch=master
 [TCI]: https://travis-ci.org/lpsantil/rt0

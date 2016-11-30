@@ -26,8 +26,8 @@ endif
 
 # Comment next line if you want System Default/GNU BFD LD instead
 #LD = gold
-CFLAGS ?= -Os -Wall -ansi -pedantic -nostdlib -fomit-frame-pointer -fno-stack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-unroll-loops -fmerge-all-constants -fno-ident -mfpmath=387 -mfancy-math-387 -ffunction-sections -fdata-sections -Wl,--gc-sections
-LDFLAGS ?= -s -nostdlib -z norelro --hash-style=sysv --build-id=none --gc-sections
+CFLAGS ?= -Os -Wall -ansi -pedantic -nostdlib -fomit-frame-pointer -fno-stack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-unroll-loops -fmerge-all-constants -fno-ident -mfpmath=sse -mfancy-math-387 -ffunction-sections -fdata-sections -Wl,--gc-sections -flto
+LDFLAGS ?= -s -static -nostdlib -z norelro --hash-style=sysv --build-id=none --gc-sections -flto
 #LDFLAGS ?= -g -nostdlib
 #LDFLAGS ?= -s -nostdlib -Wl,--gc-sections
 
