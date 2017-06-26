@@ -9,7 +9,7 @@ DESTDIR ?= /usr/local
 CORES ?= 1
 
 # Basic feature detection
-OS = $(shell uname)
+OS = $(shell cat /etc/os-release | grep "rhel\|fedora\|centos" && echo "rhel" || cat /etc/os-release | grep "debian\|ubuntu" && echo "debian" || uname)
 ARCH ?= $(shell uname -m)
 
 ifeq ($(ARCH), i686)
@@ -27,6 +27,7 @@ endif
 # Comment next line if you want System Default/GNU BFD LD instead
 #LD = gold
 CFLAGS ?= -Os -Wall -ansi -pedantic -nostdlib -fomit-frame-pointer -fno-stack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-unroll-loops -fmerge-all-constants -fno-ident -mfpmath=sse -mfancy-math-387 -ffunction-sections -fdata-sections -Wl,--gc-sections -flto
+#CFLAGS ?= -Os -Wall -std=gnu99 -pedantic -nostdlib -fomit-frame-pointer -fno-stack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-unroll-loops -fmerge-all-constants -fno-ident -mfpmath=sse -mfancy-math-387 -ffunction-sections -fdata-sections -Wl,--gc-sections -flto
 LDFLAGS ?= -s -static -nostdlib -z norelro --hash-style=sysv --build-id=none --gc-sections -flto
 #LDFLAGS ?= -g -nostdlib
 #LDFLAGS ?= -s -nostdlib -Wl,--gc-sections
@@ -56,9 +57,9 @@ TOBJ = $(TSRC:.c=.o)
 TSDEPS = $(TSRC:.c=.d)
 TEXE = $(TOBJ:.o=.exe)
 
-TMPCI = $(shell cat tmp.ci.pid)
-TMPCT = $(shell cat tmp.ct.pid)
-TMPCD = $(shell cat tmp.cd.pid)
+TMPCI = $(shell cat tmp.ci.pid 2>/dev/null)
+TMPCT = $(shell cat tmp.ct.pid 2>/dev/null)
+TMPCD = $(shell cat tmp.cd.pid 2>/dev/null)
 
 CILOG ?= tmp.ci.log
 
@@ -87,6 +88,14 @@ ifeq ($(OS), Freebsd)
 	LDFLAGS += -Wl,-u_start
 endif
 
+# Fix up the unistd_$(MSIZE) on rhel/fedora/centos vs. debian/ubuntu
+ifeq ($(OS), rhel)
+	UNISTD_PATH =
+endif
+ifeq ($(OS), debian)
+	UNISTD_PATH = $(ARCH)-linux-gnu/
+endif
+
 ######################################################################
 ######################## DO NOT MODIFY BELOW #########################
 ######################################################################
@@ -103,13 +112,13 @@ t/%.exe: t/%.o $(LIB) Makefile
 
 all: $(LIB)
 
-$(SYSINC): /usr/include/$(ARCH)-linux-gnu/asm/unistd_$(MSIZE).h
-	echo "\n#define __SYSCALL(x,y)\n" >> $@
+$(SYSINC): /usr/include/$(UNISTD_PATH)/asm/unistd_$(MSIZE).h
+	echo -e "\n#define __SYSCALL(x,y)\n" >> $@
 	grep __NR_ $< | sed -e s/__NR_/SYS_/g >> $@
 ifeq ($(WITH_FAST_SYSCALL), 1)
-	echo "\n#define __RT0_WITH_FASTER_SYSCALL__ 1\n" >> $@
+	echo -e "\n#define __RT0_WITH_FASTER_SYSCALL__ 1\n" >> $@
 endif
-	echo "\n#undef __SYSCALL\n" >> $@
+	echo -e "\n#undef __SYSCALL\n" >> $@
 
 $(LIB): $(LOBJ)
 	$(AR) -rcs $@ $^
@@ -165,6 +174,7 @@ showconfig:
 	@echo "DESTDIR="$(DESTDIR)
 	@echo "CFLAGS="$(CFLAGS)
 	@echo "LDFLAGS="$(LDFLAGS)
+	@echo "UNISTD_PATH="$(UNISTD_PATH)
 	@echo "DDIR="$(DDIR)
 	@echo "DSRC="$(DSRC)
 	@echo "SRC="$(SRC)

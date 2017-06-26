@@ -20,11 +20,12 @@
 | t/null.exe  | i386   | 552  | Empty main                         |
 | t/null.exe  | x86_64 | 752  | Empty main                         |
 
+Compiler: GCC 4.8.5, GNU LD linker 2.25.1, ld/binutils 2.25.1, OS: RHEL 7.3, Source: Author
 Compiler: GCC 4.8.4, gold linker 1.11, ld/binutils 2.24, OS: Ubuntu 14.04.3, Source: Author
 
 Compile Flags: `-Os -nostdlib -fomit-frame-pointer -fno-stack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-unroll-loops -fmerge-all-constants -fno-ident -mfpmath=387 -mfancy-math-387 -ffunction-sections -fdata-sections -Wl,--gc-sections`
 
-Link Flags: `-s -nostdlib -z norelro --hash-style=sysv --build-id=none --gc-sections`
+Link Flags: `-s -static -nostdlib -z norelro --hash-style=sysv --build-id=none --gc-sections`
 
 ---
 
