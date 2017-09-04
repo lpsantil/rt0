@@ -26,7 +26,7 @@ endif
 
 # Comment next line if you want System Default/GNU BFD LD instead
 #LD = gold
-CFLAGS ?= -Os -Wall -ansi -pedantic -nostdlib -fomit-frame-pointer -fno-stack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-unroll-loops -fmerge-all-constants -fno-ident -mfpmath=sse -mfancy-math-387 -ffunction-sections -fdata-sections -Wl,--gc-sections -flto
+CFLAGS ?= -Os -Wall -std=gnu99 -pedantic -nostdlib -fomit-frame-pointer -fno-stack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-unroll-loops -fmerge-all-constants -fno-ident -mfpmath=sse -mfancy-math-387 -ffunction-sections -fdata-sections -Wl,--gc-sections -flto
 #CFLAGS ?= -Os -Wall -std=gnu99 -pedantic -nostdlib -fomit-frame-pointer -fno-stack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-unroll-loops -fmerge-all-constants -fno-ident -mfpmath=sse -mfancy-math-387 -ffunction-sections -fdata-sections -Wl,--gc-sections -flto
 LDFLAGS ?= -s -static -nostdlib -z norelro --hash-style=sysv --build-id=none --gc-sections -flto
 #LDFLAGS ?= -g -nostdlib
@@ -34,7 +34,7 @@ LDFLAGS ?= -s -static -nostdlib -z norelro --hash-style=sysv --build-id=none --g
 
 DDIR = docs
 DSRC =
-SRC =
+SRC = $(shell ls src/*.c 2>/dev/null)
 OBJ = $(SRC:.c=.o)
 SDEPS = $(SRC:.c=.d)
 HDR = rt0/rt0.h
@@ -47,12 +47,12 @@ EDIR = .
 EXE =
 LNK = rt0
 LDIR = lib
-LSRC = $(shell ls src/lib/*.c)
+LSRC = $(shell ls src/lib/*.c 2>/dev/null)
 LOBJ = $(LSRC:.c=.o)
 LSDEPS = $(LSRC:.c=.d)
 LIB = $(LDIR)/lib$(LNK).a
 TDIR = t
-TSRC = $(shell ls t/*.c)
+TSRC = $(shell ls t/*.c 2>/dev/null)
 TOBJ = $(TSRC:.c=.o)
 TSDEPS = $(TSRC:.c=.d)
 TEXE = $(TOBJ:.o=.exe)
