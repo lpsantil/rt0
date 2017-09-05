@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2015, Louis P. Santillan <lpsantil@gmail.com>
+ * All rights reserved.
+ * See LICENSE for licensing details.
+ */
 #include <rt0/syscall.h>
 
 int write( int f, const char* d, int l )

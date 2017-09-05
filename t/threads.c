@@ -1,3 +1,15 @@
+/*
+ * Copyright (c) 2015, Louis P. Santillan <lpsantil@gmail.com>
+ * All rights reserved.
+ * See LICENSE for licensing details.
+ */
+/*
+ * Based on a full C/rt0 conversion of the blog post at
+ * http://nullprogram.com/blog/2015/05/15/
+ * and the repo at
+ * https://github.com/skeeto/pure-linux-threads-demo
+ */
+
 #include <rt0/syscall.h>
 
 int
@@ -22,34 +34,7 @@ print( const char* string )
    write( 1, string, str_len( string ) );
 }
 
-void
-printLongHex( long i )
-{
-   char* nums = "0123456789ABCDEF";
-   long d = 1,
-        r;
-
-   if( i < 0 )
-   {
-      print( "-" );
-
-      printLongHex( -i );
-
-      return;
-   }
-
-   d = i / 16;
-   r = i % 16;
-
-   if( d != 0 )
-   {
-     printLongHex( d );
-   }
-
-   write( 1, &( nums[ r ] ), 1 );
-}
-
-#define DEFAULT_STACK_SIZE() ( 4096 * 1024 )
+#define DEFAULT_STACK_SIZE ( 4096 * 1024 )
 
 #define MAP_GROWSDOWN	0x0100
 #define MAP_ANONYMOUS	0x0020
@@ -57,6 +42,9 @@ printLongHex( long i )
 #define PROT_READ	0x1
 #define PROT_WRITE	0x2
 #define PROT_EXEC	0x4
+
+#define THREAD_PROT_FLAGS ( PROT_WRITE | PROT_READ | PROT_EXEC )
+#define THREAD_MAP_FLAGS  ( MAP_ANONYMOUS | MAP_PRIVATE | MAP_GROWSDOWN )
 
 #define size_t long
 
@@ -71,7 +59,10 @@ mmap( void* addr, size_t length, int prot, int flags )
 void*
 newThreadStack( void )
 {
-   return( mmap( 0, DEFAULT_STACK_SIZE(), PROT_WRITE | PROT_READ | PROT_EXEC, MAP_ANONYMOUS | MAP_PRIVATE | MAP_GROWSDOWN ) );
+   return( mmap( 0,
+                  DEFAULT_STACK_SIZE,
+                  THREAD_PROT_FLAGS,
+                  THREAD_MAP_FLAGS ) );
 }
 
 #define CLONE_VM	0x00000100
@@ -98,7 +89,7 @@ threadCreate( void ( *func )( void ) )
 {
    void* newStack;
    newStack = newThreadStack();
-   void* newSP = ( void* )( ( char* )newStack + DEFAULT_STACK_SIZE() - 8 );
+   void* newSP = ( void* )( ( char* )newStack + DEFAULT_STACK_SIZE - 8 );
    *( long* )newSP = ( long )func;
    long ret = clone( NEW_THREAD_FLAGS, newSP );
    return( ret );
@@ -112,89 +103,9 @@ dummyThread( void )
    _exit( 0 );
 }
 
-void*
-sys_brk( void* addr )
-{
-   return( ( void* )( syscall1( SYS_brk, ( long )( addr ) ) ) );
-}
-
-void* start_brkp = ( void* )( 0 - 1 );
-void* new_brkp = 0;
-
-int
-brk( void* addr )
-{
-   void* p;
-
-   p = ( void* )( syscall1( SYS_brk, ( long )( addr ) ) );
-
-   if( p != new_brkp )
-   {
-      new_brkp = p;
-
-      if( ( void* )( -1 ) == start_brkp ) start_brkp = p;
-
-      return( 0 );
-   }
-
-   return( -1 );
-}
-
-void*
-sbrk( long inc )
-{
-   void* old_brkp;
-
-   if( 0 == inc )
-   {
-      if( 0 != new_brkp ) return( new_brkp );
-
-      /* make sure we have a new_brkp, otherwise */
-      brk( 0 );
-      return( new_brkp );
-   }
-
-   old_brkp = new_brkp;
-
-   if( 0 == brk( ( char* )( new_brkp ) + inc ) ) return( old_brkp );
-
-   /* FIXME: set errno to ENOMEM first */
-   return( ( void* )( -1 ) );
-}
-
 int
 main( int argc, char **argv, char **envp )
 {
-   /*
-   char* brkp = 0;
-   char* p = 0;
-
-   brk( 0 );
-
-   print( "Address of start_brkp/new_brkp/brkp/p/delta:\n" );
-   printLongHex( ( long )( start_brkp ) );      print( ":" );
-   printLongHex( ( long )( new_brkp ) );        print( ":" );
-   printLongHex( ( long )( brkp ) );            print( ":" );
-   printLongHex( ( long )( p ) );               print( ":" );
-   printLongHex( ( long )( p - brkp ) );        print( "\n" );
-
-   print( "...Allocating 4kb...\n" );
-   p = sbrk( 4 * 1024 );
-   print( "Address of start_brkp/new_brkp/brkp/p/delta:\n" );
-   printLongHex( ( long )( start_brkp ) );      print( ":" );
-   printLongHex( ( long )( new_brkp ) );        print( ":" );
-   printLongHex( ( long )( brkp ) );            print( ":" );
-   printLongHex( ( long )( p ) );               print( ":" );
-   printLongHex( ( long )( p - brkp ) );       print( "\n" );
-
-   print( "...Allocating 4kb more...\n" );
-   p = sbrk( 4 * 1024 );
-   print( "Address of p: " );
-   printLongHex( ( long )( p ) );              print( "\n" );
-   p = sbrk( 0 );
-   print( "Heap Size: " );
-   printLongHex( ( long )( p - ( char* )( start_brkp ) ) );   print( "\n" );
-   */
    threadCreate( dummyThread );
    threadCreate( dummyThread );
    for( int i = 0; i < 5; i++ )
