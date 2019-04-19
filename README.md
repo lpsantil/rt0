@@ -10,7 +10,7 @@ A minimal C runtime for Linux on i386 &amp; x86_64
 * Can be used with [gold][19] (Google LD, part of GNU Binutils)
 * Hello World in just 608 bytes (i386) or 792 bytes (x86_64)
 * Small binary sizes vs. other libc's
-* Tested with RHEL 7, Ubuntu 14.04+, i386, i686, x86_64
+* Tested with RHEL 7, Ubuntu 14.04, i386/i686, x86_64
 
 See [STATS.md][20] to see how rt0 fares.
 See the [musl libc comparison][0] to see how other libc's fare.
