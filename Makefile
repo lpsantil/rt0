@@ -9,7 +9,7 @@ DESTDIR ?= /usr/local
 CORES ?= 1
 
 # Basic feature detection
-OS = $(shell cat /etc/os-release | grep "rhel\|fedora\|centos" && echo "rhel" || cat /etc/os-release | grep "debian\|ubuntu" && echo "debian" || uname)
+OS = $(shell cat /etc/os-release | grep -q "rhel\|fedora\|centos" && echo "rhel" || cat /etc/os-release | grep -q "debian\|ubuntu" && echo "debian" || uname)
 ARCH ?= $(shell uname -m)
 
 ifeq ($(ARCH), i686)
@@ -113,12 +113,13 @@ t/%.exe: t/%.o $(LIB) Makefile
 all: $(LIB)
 
 $(SYSINC): /usr/include/$(UNISTD_PATH)/asm/unistd_$(MSIZE).h
-	echo -e "\n#define __SYSCALL(x,y)\n" >> $@
+	echo "#define __SYSCALL(x,y)" > $@
 	grep __NR_ $< | sed -e s/__NR_/SYS_/g >> $@
+	echo >> $@
 ifeq ($(WITH_FAST_SYSCALL), 1)
-	echo -e "\n#define __RT0_WITH_FASTER_SYSCALL__ 1\n" >> $@
+	echo "#define __RT0_WITH_FASTER_SYSCALL__ 1" >> $@
 endif
-	echo -e "\n#undef __SYSCALL\n" >> $@
+	echo "#undef __SYSCALL" >> $@
 
 $(LIB): $(LOBJ)
 	$(AR) -rcs $@ $^
