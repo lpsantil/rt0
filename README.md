@@ -15,6 +15,8 @@ A minimal C runtime for Linux on i386 &amp; x86_64
 See [STATS.md][20] to see how rt0 fares.
 See the [musl libc comparison][0] to see how other libc's fare.
 
+You might be interested in Linux native/built-in and fairly portable [nolibc header][26].
+
 ## Building
 Try:
 * `make`
@@ -54,6 +56,7 @@ Try:
 * [Writing C software without the standard library - Linux Edition][25]
 
 ## Other small libc's and runtimes
+* [nolibc][26]
 * [musl libc][8]
 * [newlib libc][9]
 * [uclibc][10]
@@ -92,6 +95,7 @@ Try:
 [23]: http://danluu.com/malloc-tutorial/
 [24]: http://elinux.org/images/b/b5/Elc2013_Kobayashi.pdf
 [25]: https://web.archive.org/web/20161129082520/http://weeb.ddns.net/0/programming/c_without_standard_library_linux.txt
+[26]: https://github.com/torvalds/linux/blob/master/tools/include/nolibc/nolibc.h
 
 [CI]: https://travis-ci.org/lpsantil/rt0.svg?branch=master
 [TCI]: https://travis-ci.org/lpsantil/rt0
